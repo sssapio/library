@@ -1,6 +1,6 @@
 const btn = document.querySelector("#new-book");
 const container = document.querySelector("#container");
-const form = document.querySelector("#form");
+const form = document.querySelector("#form-container");
 
 function Book(title, author, pages, read) {
   this.id = crypto.randomUUID();
@@ -52,6 +52,7 @@ const displayBook = () => {
 };
 btn.addEventListener("click", () => {
   form.innerHTML = `
+  <form>
     <label for="title">Title</label>
     <input type="text" id="title" />
     <label for="author">Author</label>
@@ -61,6 +62,7 @@ btn.addEventListener("click", () => {
     <label for="read">Status(True or False)</label>
     <input type="text" id="read" />
     <button id="submit-btn" type="submit">Submit</button>
+    </form>
     `;
 
   const submitBtn = document.querySelector("#submit-btn");
