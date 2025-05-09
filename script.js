@@ -2,20 +2,41 @@ const btn = document.querySelector("#new-book");
 const container = document.querySelector("#container");
 const form = document.querySelector("#form-container");
 
-function Book(title, author, pages, read) {
-  this.id = crypto.randomUUID();
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
+class Book {
+  constructor(title, author, pages, read) {
+    this.id = crypto.randomUUID();
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
+  get checkStatus() {
+    return this.check();
+  }
+  check() {
+    return this.read === true || this.read === "true" ? "read" : "not read yet";
+  }
+  get toggleStatus() {
+    return this.toggleReadStatus();
+  }
+  toggleReadStatus() {
+    this.read = this.read === true || this.read === "true" ? "false" : "true";
+  }
 }
-Book.prototype.check = function () {
-  return this.read === true || this.read === "true" ? "read" : "not read yet";
-};
+// function Book(title, author, pages, read) {
+//   this.id = crypto.randomUUID();
+//   this.title = title;
+//   this.author = author;
+//   this.pages = pages;
+//   this.read = read;
+// }
+// Book.prototype.check = function () {
+//   return this.read === true || this.read === "true" ? "read" : "not read yet";
+// };
 
-Book.prototype.toggleReadStatus = function () {
-  this.read = this.read === true || this.read === "true" ? "false" : "true";
-};
+// Book.prototype.toggleReadStatus = function () {
+//   this.read = this.read === true || this.read === "true" ? "false" : "true";
+// };
 const bookArr = [];
 
 const displayBook = () => {
@@ -28,13 +49,13 @@ const displayBook = () => {
     <h3>${book.title}</h3>
     <p>Author: ${book.author}</p>
     <p>Pages: ${book.pages}</p>
-    <p class="statusText">Status: ${book.check()}</p>
+    <p class="statusText">Status: ${book.checkStatus}</p>
     <button class="removeBtn">Remove Book</button>
     <button class="changeStatus">Change Read Status</button>
     `;
 
     container.appendChild(bookElement);
-    const removeBtn = document.querySelector(".removeBtn");
+    const removeBtn = bookElement.querySelector(".removeBtn");
     removeBtn.addEventListener("click", (e) => {
       const index = bookArr.findIndex((b) => b.id === book.id);
       if (index !== -1) {
@@ -42,11 +63,11 @@ const displayBook = () => {
         displayBook();
       }
     });
-    const statusText = document.querySelector(".statusText");
-    const changeStatus = document.querySelector(".changeStatus");
+    const statusText = bookElement.querySelector(".statusText");
+    const changeStatus = bookElement.querySelector(".changeStatus");
     changeStatus.addEventListener("click", () => {
-      book.toggleReadStatus();
-      statusText.textContent = `Status: ${book.check()}`;
+      book.toggleStatus;
+      statusText.textContent = `Status: ${book.checkStatus}`;
     });
   });
 };
@@ -80,3 +101,4 @@ btn.addEventListener("click", () => {
     displayBook();
   });
 });
+console.log(5);
